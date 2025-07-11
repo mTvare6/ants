@@ -1,0 +1,9 @@
+# Rust
+/target
+Cargo.lock
+
+# Trunk
+/dist
+
+# IDE files
+.vscode
