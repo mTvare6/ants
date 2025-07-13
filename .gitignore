@@ -7,3 +7,7 @@ Cargo.lock
 
 # IDE files
 .vscode
+
+# Test files
+test_*.py
+test_*.rs
