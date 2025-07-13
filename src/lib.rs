@@ -309,21 +309,14 @@ impl World {
             for x in 0..self.grid_cols {
                 let idx = y * self.grid_cols + x;
 
-                if self.to_food_pheromones[idx] > 0.01 {
-                    let alpha = self.to_food_pheromones[idx];
+                // Render pheromones as magenta trail
+                if self.to_food_pheromones[idx] > 0.01 || self.to_home_pheromones[idx] > 0.01 {
+                    // Combine both pheromone types for magenta trail
+                    let combined_intensity = (self.to_food_pheromones[idx] + self.to_home_pheromones[idx]).min(1.0);
+                    let alpha = combined_intensity;
                     self.offscreen_ctx
                         .set_fill_style(&JsValue::from_str(&format!(
-                            "rgba(239, 68, 68, {})",
-                            alpha
-                        )));
-                    self.offscreen_ctx.fill_rect(x as f64, y as f64, 1.0, 1.0);
-                }
-
-                if self.to_home_pheromones[idx] > 0.01 {
-                    let alpha = self.to_home_pheromones[idx];
-                    self.offscreen_ctx
-                        .set_fill_style(&JsValue::from_str(&format!(
-                            "rgba(59, 130, 246, {})",
+                            "rgba(255, 0, 255, {})",
                             alpha
                         )));
                     self.offscreen_ctx.fill_rect(x as f64, y as f64, 1.0, 1.0);
